@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@*<div class="jumbotron">
+    <h1 style="text-align:center;">Todo List</h1>
+    <p style="text-align:center;" class="lead">Simple Todo List made with MongoDB.</p>
+</div>*@
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        @if (Request.IsAuthenticated)
+        {
+
+            <h2 style="text-align:center;">Todo:</h2>
+            <table class="col-md-12 table table-hover">
+                <tbody>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Create Date</th>
+                    <th scope="col">Done</th>
+                </tr>
+
+                @foreach (M101DotNet.WebApp.Models.Todo todo in Model.Todos)
+                {
+                    <tr>
+                        <td>
+                            @todo.Title
+                        </td>
+                        <td>@todo.Content.Substring(0, Math.Min(todo.Content.Length - 1, 200))</td>
+                        <td>@todo.CreatedAtUtc.ToShortDateString()</td>
+                        <td>
+                            <input type="checkbox" name="Done" value="" />
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        } else {
+            <h2 style="margin-top: 20px; text-align: center;">Please login to access your TODO list.</h2>
+            @*@Html.Partial("~/Views/Account/Login.cshtml", new M101DotNet.WebApp.Models.Account.LoginModel())*@
+
+
+            Html.RenderAction("Login", "Account", new M101DotNet.WebApp.Models.Account.LoginModel());
+
+        }
+    </div>
+    
+</div>

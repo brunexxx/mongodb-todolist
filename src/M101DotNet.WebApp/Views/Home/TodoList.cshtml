@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "All Todos";
+}
+
+<table>
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+        <th scope="col">Create Date</th>
+        <th scope="col">Done</th>
+    </tr>
+
+    @foreach (M101DotNet.WebApp.Models.Todo todo in Model)
+    {
+        <tr>
+            <td>
+                @todo.Title
+            </td>
+            <td>
+                @todo.Content.Substring(0, Math.Min(todo.Content.Length - 1, 200))
+            </td>
+            <td>
+                @todo.CreatedAtUtc.ToShortDateString()
+            </td>
+        </tr>
+    }
+
+</table>
